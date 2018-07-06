@@ -8,7 +8,7 @@ import com.example.admin.nycschools.R;
 
 public class SchoolDetails extends AppCompatActivity {
 
-    TextView name,address,email,math,reading,writing;
+    TextView name, address, email, math, reading, writing;
     Bundle bundle;
 
     @Override
@@ -17,12 +17,12 @@ public class SchoolDetails extends AppCompatActivity {
         setContentView(R.layout.activity_school_details);
         bindViews();
         bundle = getIntent().getExtras();
-        name.setText(bundle.getString("name"));
-        address.setText(bundle.getString("address"));
-        email.setText(bundle.getString("email"));
-        math.setText(bundle.getString("math"));
-        reading.setText(bundle.getString("read"));
-        writing.setText(bundle.getString("write"));
+        name.setText("School: " + bundle.getString("name"));
+        address.setText("Adress: " + bundle.getString("address"));
+        email.setText("Email: " + bundle.getString("email"));
+        math.setText("Math SAT AVG: " + bundle.getString("math"));
+        reading.setText("Reading SAT AVG: " + bundle.getString("read"));
+        writing.setText("Write SAT AVG: "+bundle.getString("write"));
 
 
     }
@@ -30,7 +30,7 @@ public class SchoolDetails extends AppCompatActivity {
     private void bindViews() {
         name = (TextView) findViewById(R.id.tvdName);
         address = (TextView) findViewById(R.id.tvdAddress);
-        email = (TextView) findViewById(R.id.tvEmail);
+        email = (TextView) findViewById(R.id.tvdEmail);
         math = (TextView) findViewById(R.id.tvdMath);
         reading = (TextView) findViewById(R.id.tvdReading);
         writing = (TextView) findViewById(R.id.tvdWriting);

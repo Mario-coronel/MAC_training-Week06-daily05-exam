@@ -53,7 +53,6 @@ public class SchoolAdapter extends RecyclerView.Adapter<SchoolAdapter.SchoolView
             holder.emal.setText(responses.get(position).getSchoolEmail());
         holder.itemView.setId(position);
         holder.itemView.setOnClickListener(this);
-        System.out.println(responses.get(position).getSchoolName());
 
     }
 
@@ -68,19 +67,22 @@ public class SchoolAdapter extends RecyclerView.Adapter<SchoolAdapter.SchoolView
         Call<List<SATResponse>> call = service.getSATResultsCall(responses.get(view.getId()).getDbn());
         Log.wtf("URL Called", call.request().url() + "");
         final Intent intent = new Intent(mainActivity, SchoolDetails.class);
-        intent.putExtra("name",((TextView)view.findViewById(R.id.tvName)).getText());
+        intent.putExtra("name", ((TextView) view.findViewById(R.id.tvName)).getText());
         intent.putExtra("address", ((TextView) view.findViewById(R.id.tvAddress)).getText());
-        intent.putExtra("email", ((TextView)view.findViewById(R.id.tvEmail)).getText());
+        intent.putExtra("email", ((TextView) view.findViewById(R.id.tvEmail)).getText());
         call.enqueue(new Callback<List<SATResponse>>() {
             @Override
             public void onResponse(Call<List<SATResponse>> call, Response<List<SATResponse>> response) {
-
                 details = response.body();
-                intent.putExtra("math", details.get(0).getSatMathAvgScore());
-                intent.putExtra("read", details.get(0).getSatCriticalReadingAvgScore());
-                intent.putExtra("write", details.get(0).getSatWritingAvgScore());
+                if (details.size() > 0) {
+                    if (details.get(0).getSatMathAvgScore() != null)
+                        intent.putExtra("math", details.get(0).getSatMathAvgScore());
+                    if (details.get(0).getSatCriticalReadingAvgScore() != null)
+                        intent.putExtra("read", details.get(0).getSatCriticalReadingAvgScore());
+                    if (details.get(0).getSatWritingAvgScore() != null)
+                        intent.putExtra("write", details.get(0).getSatWritingAvgScore());
+                }
                 mainActivity.startActivity(intent);
-
             }
 
             @Override
